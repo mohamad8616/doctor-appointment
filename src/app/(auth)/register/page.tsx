@@ -1,5 +1,5 @@
-import { Metadata } from "next";
 import { RegisterForm } from "@/components/auth/RegisterForm";
+import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -30,4 +30,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

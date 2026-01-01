@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
-import "./globals.css";
-import Navbar from "./components/ui/Navbar";
 import { ThemeProvider } from "./components/theme/ThemeProvider";
+import Navbar from "./components/ui/Navbar";
+import "./globals.css";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -16,7 +16,8 @@ export const metadata: Metadata = {
     default: "سیستم نوبت دهی آنلاین",
     template: "%s | سیستم نوبت دهی آنلاین",
   },
-  description: "سیستم نوبت دهی آنلاین برای مطب پزشکان، بیمارستان‌ها، کلینیک‌ها و مراکز درمانی",
+  description:
+    "سیستم نوبت دهی آنلاین برای مطب پزشکان، بیمارستان‌ها، کلینیک‌ها و مراکز درمانی",
   keywords: [
     "نوبت دهی آنلاین",
     "رزرو نوبت پزشک",
@@ -37,19 +38,23 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+  ),
   openGraph: {
     type: "website",
     locale: "fa_IR",
     url: "/",
     title: "سیستم نوبت دهی آنلاین",
-    description: "سیستم نوبت دهی آنلاین برای مطب پزشکان، بیمارستان‌ها، کلینیک‌ها و مراکز درمانی",
+    description:
+      "سیستم نوبت دهی آنلاین برای مطب پزشکان، بیمارستان‌ها، کلینیک‌ها و مراکز درمانی",
     siteName: "سیستم نوبت دهی آنلاین",
   },
   twitter: {
     card: "summary_large_image",
     title: "سیستم نوبت دهی آنلاین",
-    description: "سیستم نوبت دهی آنلاین برای مطب پزشکان، بیمارستان‌ها، کلینیک‌ها و مراکز درمانی",
+    description:
+      "سیستم نوبت دهی آنلاین برای مطب پزشکان، بیمارستان‌ها، کلینیک‌ها و مراکز درمانی",
   },
   robots: {
     index: true,
@@ -76,7 +81,11 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" className={vazirmatn.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="antialiased">
         <ThemeProvider>

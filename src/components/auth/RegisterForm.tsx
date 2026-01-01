@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { signUp } from "@/lib/auth-client";
-import { registerSchema, type RegisterInput } from "@/lib/validations";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { credentialsRegister } from "@/lib/actions";
+import { registerSchema, type RegisterInput } from "@/lib/validations";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -27,16 +33,12 @@ export function RegisterForm() {
   const onSubmit = async (data: RegisterInput) => {
     setIsLoading(true);
     setError(null);
-
     try {
-      const result = await signUp.email({
-        email: data.email,
-        password: data.password,
-        name: data.name,
-      });
+      const { email, name, password } = data;
+      const result = await credentialsRegister({ email, name, password });
 
       if (result.error) {
-        setError(result.error.message || "خطا در ثبت نام");
+        setError("خطا در ثبت نام");
         return;
       }
 
@@ -48,28 +50,26 @@ export function RegisterForm() {
     }
   };
 
-  const handleGoogleSignUp = async () => {
-    setIsLoading(true);
-    setError(null);
+  // const handleGoogleSignUp = async () => {
+  //   setIsLoading(true);
+  //   setError(null);
 
-    try {
-      await signUp.social({
-        provider: "google",
-        callbackURL: "/dashboard",
-      });
-    } catch (err) {
-      setError("خطا در ثبت نام با گوگل");
-      setIsLoading(false);
-    }
-  };
+  //   try {
+  //     await signUp.social({
+  //       provider: "google",
+  //       callbackURL: "/dashboard",
+  //     });
+  //   } catch (err) {
+  //     setError("خطا در ثبت نام با گوگل");
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
         <CardTitle>ثبت نام</CardTitle>
-        <CardDescription>
-          حساب کاربری جدید ایجاد کنید
-        </CardDescription>
+        <CardDescription>حساب کاربری جدید ایجاد کنید</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -107,11 +107,7 @@ export function RegisterForm() {
 
           <div className="space-y-2">
             <Label htmlFor="password">رمز عبور</Label>
-            <Input
-              id="password"
-              type="password"
-              {...register("password")}
-            />
+            <Input id="password" type="password" {...register("password")} />
             {errors.password && (
               <p className="text-sm text-destructive">
                 {errors.password.message}
@@ -142,14 +138,12 @@ export function RegisterForm() {
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              یا
-            </span>
-          </div>
+          {/* <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">یا</span>
+          </div> */}
         </div>
 
-        <Button
+        {/* <Button
           type="button"
           variant="outline"
           className="w-full"
@@ -175,9 +169,8 @@ export function RegisterForm() {
             />
           </svg>
           ثبت نام با گوگل
-        </Button>
+        </Button> */}
       </CardContent>
     </Card>
   );
 }
-
